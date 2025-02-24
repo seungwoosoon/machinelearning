@@ -1,10 +1,24 @@
 import numpy as np
 import pandas as pd
-arr = np.array([2,3,4])
-print(arr)
-df = pd.DataFrame([[4,5,6],
-        [4,5,6],
-        [4,5,6]],
-        index = [1,2,3], columns=["a","b","c"])
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+from sklearn.neighbors import KNeighborsRegressor
 
-print(df)
+ls = pd.read_csv("https://github.com/ageron/data/raw/main/lifesat/lifesat.csv")
+print(ls)
+X = ls[["GDP per capita (USD)"]].values
+Y = ls[["Life satisfaction"]].values
+
+ls.plot(kind='scatter', grid=True, x="GDP per capita (USD)", y="Life satisfaction")
+plt.axis([23500,62500,4,9])
+plt.show()
+
+model = LinearRegression()
+model.fit(X,Y)
+X_new = [[37655.2]]
+print(model.predict(X_new))
+
+model = KNeighborsRegressor()
+model.fit(X,Y)
+X_new = [[37655.2]]
+print(model.predict(X_new))
